@@ -1,0 +1,41 @@
+TASK1 
+def caesar_cipher(text, shift, operation):
+    """
+    Encrypt or decrypt the text using Caesar Cipher.
+
+    :param text: The input text to encrypt or decrypt.
+    :param shift: The number of letters to shift by.
+    :param operation: 'encrypt' or 'decrypt'.
+    :return: The encrypted or decrypted text.
+    """
+    if operation == 'decrypt':
+        shift = -shift
+
+    result = ""
+
+    for char in text:
+        if char.isalpha():  # Check if the character is an alphabet
+            # Shift character within the bounds of alphabet
+            start = 'A' if char.isupper() else 'a'
+            result += chr((ord(char) - ord(start) + shift) % 26 + ord(start))
+        else:
+            # Leave non-alphabetic characters unchanged
+            result += char
+
+    return result
+
+# User input
+print("Do you want to encrypt or decrypt?")
+operation = input("Type 'encrypt' or 'decrypt': ").lower()
+while operation not in ['encrypt', 'decrypt']:
+    print("Invalid option. Please type 'encrypt' or 'decrypt'.")
+    operation = input().lower()
+
+text = input("Enter your message: ")
+shift = int(input("Enter your shift value: "))
+
+# Perform the operation
+result = caesar_cipher(text, shift, operation)
+
+# Output the result
+print(f"Here is your {operation}ed text: {result}")
